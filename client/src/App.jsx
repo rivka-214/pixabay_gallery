@@ -1,15 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getImages,
-  selectImages,
-  selectLoading,
-  selectError,
-  selectCurrentCategory,
-  selectCurrentPage,
-  selectCurrentSortBy,
-  nextPage,
-  prevPage,
+import {getImages,selectImages, selectLoading,selectError,selectCurrentCategory,selectCurrentPage, selectCurrentSortBy, nextPage, prevPage,
 } from './redux/slices/imagesSlice';
 import ImageGrid from './components/ImageGrid/ImageGrid.jsx';
 import NavigationButtons from './components/NavigationButtons/NavigationButtons.jsx';

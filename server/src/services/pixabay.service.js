@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PAGINATION } from '../config/constants.js';
+import { PAGINATION , SORT_OPTIONS, DEFAULT_CATEGORY} from '../config/constants.js';
 
 /**
  * Pixabay Service
@@ -10,26 +10,16 @@ class PixabayService {
   constructor() {
     this.apiKey = process.env.PIXABAY_API_KEY;
     this.baseUrl = process.env.PIXABAY_BASE_URL;
-
     // בדיקה שהמשתנים קיימים - אחרת השרת לא יעבוד
     if (!this.apiKey) throw new Error('PIXABAY_API_KEY is not defined in .env file');
     if (!this.baseUrl) throw new Error('PIXABAY_BASE_URL is not defined in .env file');
-
     console.log('📡 Pixabay Service initialized successfully');
   }
 
-  /**
-   * שליפת תמונות מ-Pixabay לפי קטגוריה, עמוד ומיון
-   * @param {string} category - הקטגוריה הרצויה (ברירת מחדל: nature)
-   * @param {number} page - מספר העמוד
-   * @param {string} sortBy - סוג המיון (latest / id)
-   * @returns {object} נתוני התמונות, כולל סה"כ תוצאות והעמוד הנוכחי
-   */
-  async fetchImages(category = 'nature', page = 1, sortBy = 'latest') {
+  async fetchImages(category = DEFAULT_CATEGORY, page = PAGINATION.DEFAULT_PAGE, sortBy = SORT_OPTIONS.LATEST) {
     try {
       // Pixabay לא תומך במיון לפי ID, לכן נשתמש ב־latest ונמיין אצלנו אם נדרש
       const pixabayOrder = sortBy === 'id' ? 'latest' : sortBy;
-
       const params = {
         key: this.apiKey,
         q: category,
